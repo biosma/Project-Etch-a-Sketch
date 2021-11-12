@@ -15,11 +15,11 @@ const sizePicker = document.getElementById('size');
 const updaterSize = document.getElementById('updaterSize')
 updaterSize.innerHTML = `${currentSize}*${currentSize}`
 
-sizePicker.onchange = (e) => {
+sizePicker.addEventListener('input', (e) => {
     currentSize = e.target.value;
     updaterSize.innerHTML = `${currentSize}*${currentSize}`
     reloadGrid()
-}
+})
 
 rainbowMode.onclick = () => {
     if(currentMode !== "rainbow" ){
@@ -73,7 +73,7 @@ function cambiarColor(evento){
     }else if (currentMode === DEFAULT_MODE){
         
     }
-} //Falta lo de que cada 10 cuadraditos uno sea negro
+} 
 
 function toggleDraw(){
     if(currentMode == DEFAULT_MODE){
