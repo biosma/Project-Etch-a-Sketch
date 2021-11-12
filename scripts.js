@@ -5,6 +5,7 @@ let counter = 0;
 let currentSize = DEFAULT_SIZE;
 let currentColor = DEFAULT_COLOR;
 let currentMode = DEFAULT_MODE
+let memorieMode;
 let grid = document.getElementById("grid");
 const clearButton = document.getElementById("clearButton");
 const colorPicker = document.getElementById('colorPicker');
@@ -12,11 +13,11 @@ const rainbowMode = document.getElementById('rainbowMode');
 const colorMode = document.getElementById('colorMode');
 const sizePicker = document.getElementById('size');
 const updaterSize = document.getElementById('updaterSize')
-updaterSize.innerHTML = `Size = ${currentSize}*${currentSize}`
+updaterSize.innerHTML = `${currentSize}*${currentSize}`
 
 sizePicker.onchange = (e) => {
     currentSize = e.target.value;
-    updaterSize.innerHTML = `Size = ${currentSize}*${currentSize}`
+    updaterSize.innerHTML = `${currentSize}*${currentSize}`
     reloadGrid()
 }
 
@@ -66,15 +67,28 @@ function cambiarColor(evento){
         } else if(counter !== 10){
             evento.target.style.backgroundColor = `rgb(${redRandom}, ${greenRandom}, ${blueRandom})`;
         }
-        
     }else if (currentMode === 'color') {
+        currentColor = colorPicker.value
         evento.target.style.backgroundColor = currentColor
-}} //Falta lo de que cada 10 cuadraditos uno sea negro
+    }else if (currentMode === DEFAULT_MODE){
+        
+    }
+} //Falta lo de que cada 10 cuadraditos uno sea negro
+
+function toggleDraw(){
+    if(currentMode == DEFAULT_MODE){
+        setCurrentMode(memorieMode)
+    }else{
+        memorieMode = currentMode;
+        setCurrentMode(DEFAULT_MODE)
+    }
+}
 function setupGrid(size){
     grid.style.gridTemplateColumns = `repeat(${size},1fr)` //Creamos las columnas del ancho total dividido por la cantidad que queremos
     grid.style.gridTemplateRows = `repeat(${size},1fr)` //Creamos las filas del alto total dividido por la cantidad que queremos
     for(let i = 0; i< size*size; i++){
         let gridItem = document.createElement("div");
+        gridItem.addEventListener("click", toggleDraw);
         gridItem.addEventListener("mouseover",cambiarColor);
         grid.appendChild(gridItem);
     }
