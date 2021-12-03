@@ -6,6 +6,7 @@ let currentSize = DEFAULT_SIZE;
 let currentColor = DEFAULT_COLOR;
 let currentMode = DEFAULT_MODE
 let memorieMode;
+let gradientShadow = document.getElementById("gradient-shadow");
 let grid = document.getElementById("grid");
 const clearButton = document.getElementById("clearButton");
 const colorPicker = document.getElementById('colorPicker');
@@ -16,6 +17,11 @@ const updaterSize = document.getElementById('updaterSize')
 updaterSize.innerHTML = `${currentSize}*${currentSize}`
 
 sizePicker.addEventListener('input', (e) => {
+    let target = e.target
+    const min = target.min
+    const max = target.max
+    const val = target.value
+    target.style.backgroundSize = (val - min) * 100 / (max - min) + '% 100%';
     currentSize = e.target.value;
     updaterSize.innerHTML = `${currentSize}*${currentSize}`
     reloadGrid()
@@ -23,19 +29,28 @@ sizePicker.addEventListener('input', (e) => {
 
 rainbowMode.onclick = () => {
     if(currentMode !== "rainbow" ){
-        setCurrentMode('rainbow')
+        setCurrentMode('rainbow');
+        gradientShadow.style.display = 'block';
     }else if(currentMode == "rainbow"){
-        setCurrentMode(DEFAULT_MODE)
+        setCurrentMode(DEFAULT_MODE);
+        gradientShadow.style.display = 'none';
     }
 }
 colorMode.onclick = () => {
     if(currentMode !== "color" ){
-        setCurrentMode('color')
-    }else if(currentMode == "color"){
-        setCurrentMode(DEFAULT_MODE)
+        setCurrentMode('color');
+        gradientShadow.style.display = 'none';
+    }else if(currentMode == "color" && currentMode != "rainbow"){
+        setCurrentMode(DEFAULT_MODE);
+        gradientShadow.style.display = 'none';
     }
 }
-colorPicker.onchange = (e) => setColor(e.target.value);
+colorPicker.onchange = (e) => {
+    sizePicker.style.backgroundImage = `linear-gradient(${e.target.value}, ${e.target.value})`;
+    document.documentElement.style.setProperty('--color-thumb', e.target.value);
+    setColor(e.target.value);
+    colorPicker.style.border = `3.5px solid ${e.target.value}`;
+}
 
 clearButton.addEventListener("click", () =>{
     clearGrid();

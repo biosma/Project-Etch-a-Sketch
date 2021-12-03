@@ -9,17 +9,29 @@
 </head>
 <body>
     <main class = "main">
+        
         <div class="container">
+            <h2><b class="orangeword">Pixel </b><br>by Pixel</h2>
+            <p>Choose the color and move the cursor to draw.</p>
             <div class="settings">
-               <button id="clearButton">Clear Button</button>
-               <button id="rainbowMode">Rainbow Mode</button>
-               <button id="colorMode">Color Mode</button>
-               <input type="color" id="colorPicker" value="#000000" autocomplete="off"/>
-               <input type="range" id="size" value="16" min= "1" max = "100" autocomplete="off"/>
-               <div id="updaterSize"></div>
+                <div class="shape"></div>
+                <div class="buttons">
+                    <button id="clearButton">Clear Button</button>
+                    <button id="rainbowMode">Rainbow Mode</button>
+                    <button id="colorMode">Color Mode</button>
+                </div>
+                <div class='inputs'>
+                    <input type="color" id="colorPicker" value="#000000" autocomplete="off"/>
+                    <div id="gradient-shadow"></div>
+                    <div class="sizer-conteiner">
+                        <input type="range" id="size" value="16" min= "1" max = "100" autocomplete="off"/>
+                        <div id="updaterSize"></div>
+                    </div>
+                </div> 
             </div>
             <div class="grid" id="grid"></div>
         </div>
+        <footer class="footer">Project Etch a Sketch / Bonelli Gonzalo webDev & Bonelli Matias UX/UI / Argentina</footer>
     </main>
     <script src="scripts.js"></script>
 </body>
